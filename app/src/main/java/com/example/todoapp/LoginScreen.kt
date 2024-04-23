@@ -98,7 +98,8 @@ fun LoginScreen(navController: NavHostController) {
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(
-            onClick = { Log.i("Credential", "Email: $email, Password: ${AutofillType.Password}") },
+            onClick = { Log.i("Credential", "Email: $email, Password: ${AutofillType.Password
+            }") },
 
             enabled = isLoginEnabled
         ) {

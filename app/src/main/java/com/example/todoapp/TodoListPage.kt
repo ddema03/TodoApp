@@ -1,3 +1,5 @@
+package com.example.todoapp
+
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -13,13 +15,17 @@ import androidx.compose.ui.unit.sp
 import java.text.SimpleDateFormat
 import java.util.Locale
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.todoapp.TodoItem
-import com.example.todoapp.TodoViewModel
 
+// The main Composable function for the Todo List page
 @Composable
 fun TodoListPage(viewModel: TodoViewModel = viewModel()) {
+    // State variable to hold the input text for new todo
     var inputText by remember { mutableStateOf("") }
 
+    // Observing the todoList LiveData to get the current state
+    val todoListState = viewModel.todoList.observeAsState(listOf())
+
+    // Main layout for the Todo list
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
         verticalArrangement = Arrangement.Top,
@@ -46,9 +52,11 @@ fun TodoListPage(viewModel: TodoViewModel = viewModel()) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
+        // LazyColumn to display the list of Todo items
         LazyColumn {
-            val todoList = viewModel.todoList.observeAsState(listOf())
-            items(todoList.value!!) { todoItem ->
+            val todoList = todoListState.value ?: listOf() // Get the list or fallback to an empty list
+
+            items(todoList) { todoItem ->
                 TodoItemRow(
                     item = todoItem,
                     onDelete = { viewModel.deleteTodo(todoItem.id) }
@@ -58,6 +66,7 @@ fun TodoListPage(viewModel: TodoViewModel = viewModel()) {
     }
 }
 
+// Composable function for displaying a single Todo item
 @Composable
 fun TodoItemRow(item: TodoItem, onDelete: () -> Unit) {
     Row(

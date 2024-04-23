@@ -13,6 +13,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.todoapp.ui.theme.TodoAppTheme
+import com.example.todoapp.TodoViewModel
 
 class MainActivity : ComponentActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
@@ -35,16 +36,10 @@ class MainActivity : ComponentActivity() {
                             RegisterScreen(navController = navController)
                         }
 
-                        composable("todo") { // New navigation route
-                            TodoListPage(navController)
-
-                            // Uncomment or add more composables for additional pages
-                            // composable("todo") {
-                            //     TodoListPage(navController = navController)
-                            // }
-                            // composable("profile") {
-                            //     ProfileScreen(navController = navController)
-                            // }
+                        composable("todo") { // Ensure passing the correct argument
+                            // Create the ViewModel for the Todo list page
+                            val todoViewModel = androidx.lifecycle.viewmodel.compose.viewModel<TodoViewModel>()
+                            TodoListPage(viewModel = todoViewModel) // Pass the correct argument
                         }
                     }
                 }
@@ -52,4 +47,3 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
