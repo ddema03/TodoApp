@@ -3,12 +3,13 @@ package com.example.todoapp
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.util.Date
+import java.util.UUID
 
 @Entity
-data class Todo(
+data class TodoItem(
     @PrimaryKey(autoGenerate = true)
-    var id: Int = 0,
+    var id: UUID = UUID.randomUUID(),
     var title: String,
-    var createdAt: Date
+    var createdAt: Date = Date()
 )
 
