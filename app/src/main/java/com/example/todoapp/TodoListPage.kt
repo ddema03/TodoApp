@@ -42,7 +42,7 @@ import java.util.Locale
 @Composable
 fun TodoListPage(viewModel: NavHostController) {
 
-    val todoList by viewModel.todolist.observeAsState()
+   // val todoList by viewModel.todolist.observeAsState()
     var inputText by remember {
         mutableStateOf("")
     }
@@ -64,32 +64,32 @@ fun TodoListPage(viewModel: NavHostController) {
                 inputText = it
             })
             Button(onClick = {
-                viewModel.addTodo(inputText)
+              //  viewModel.addTodo(inputText)
                 inputText = ""
             }) {
                 Text(text = "Add")
             }
         }
-        todoList?.let {
+        //todoList?.let {
             LazyColumn(
                 content = {
-                    itemsIndexed(it) { index: Int, item: Todo ->
-                        TodoItem(item = item, onDelete = {
-                            viewModel.deleteTodo(item.id)
+                   // itemsIndexed(it) { index: Int, item: Todo ->
+                      //  TodoItem(item = item, onDelete = {
+                          //  viewModel.deleteTodo(item.id)
                         })
                     }
                 }
-            )
+          //  )
 
-        }?: Text(
-            modifier = Modifier.fillMaxWidth(),
-            textAlign = TextAlign.Center,
-            text = "No task yet",
-            fontSize = 16.sp
-        )
-    }
+     //   }?: Text(
+        //    modifier = Modifier.fillMaxWidth(),
+         //   textAlign = TextAlign.Center,
+          //  text = "No task yet",
+          //  fontSize = 16.sp
+       // )
+  //  }
 
-}
+//}
 
 @Composable
 fun TodoItem(item : Todo,onDelete : ()-> Unit) {
