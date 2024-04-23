@@ -8,26 +8,45 @@ import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.example.todoapp.ui.theme.TodoAppTheme
 
 class MainActivity : ComponentActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val todoViewModel = ViewModelProvider(this)[TodoViewModel::class.java]
+
         setContent {
             TodoAppTheme {
-                // A surface container using the 'background' color from the theme
+                val navController = rememberNavController()
+
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    TodoListPage(todoViewModel)
+                    NavHost(navController, startDestination = "login") {
+                        composable("login") {
+                            LoginScreen(navController = navController)
+                        }
+                        composable("register") {
+                            RegisterScreen(navController = navController)
+                        }
+
+                        composable("todo") { // New navigation route
+                            TodoListPage(navController)
+
+                            // Uncomment or add more composables for additional pages
+                            // composable("todo") {
+                            //     TodoListPage(navController = navController)
+                            // }
+                            // composable("profile") {
+                            //     ProfileScreen(navController = navController)
+                            // }
+                        }
+                    }
                 }
             }
         }

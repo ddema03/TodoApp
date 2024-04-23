@@ -6,7 +6,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -29,18 +28,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import java.text.SimpleDateFormat
 import java.util.Locale
 
 
+
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun TodoListPage(viewModel: TodoViewModel) {
+fun TodoListPage(viewModel: NavHostController) {
 
     val todoList by viewModel.todolist.observeAsState()
     var inputText by remember {
@@ -122,8 +122,8 @@ fun TodoItem(item : Todo,onDelete : ()-> Unit) {
                 contentDescription = "Delete",
                 tint = Color.Red
             )
-            
+
         }
     }
-    
+
 }
