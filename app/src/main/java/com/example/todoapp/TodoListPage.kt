@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.sp
 import java.text.SimpleDateFormat
 import java.util.Locale
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.google.firebase.auth.FirebaseAuth
 
 // The main Composable function for the Todo List page
 @Composable
@@ -24,6 +25,7 @@ fun TodoListPage(viewModel: TodoViewModel = viewModel()) {
 
     // Observing the todoList LiveData to get the current state
     val todoListState = viewModel.todoList.observeAsState(listOf())
+
 
     // Main layout for the Todo list
     Column(

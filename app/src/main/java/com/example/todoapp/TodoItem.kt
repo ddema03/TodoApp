@@ -6,9 +6,9 @@ import java.util.Date
 import java.util.UUID
 
 @Entity
-data class TodoItem(
+data class Todo(
     @PrimaryKey(autoGenerate = true)
-    var id: UUID = UUID.randomUUID(),
+    var id: Int = 0,
     var title: String,
     var createdAt: Date = Date()
 )

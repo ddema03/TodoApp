@@ -31,9 +31,16 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
 @Composable
 fun LoginScreen(navController: NavHostController) {
+
+    val auth = FirebaseAuth.getInstance()
+    val coroutineScope = rememberCoroutineScope()
+
 
     var email by remember {
         mutableStateOf("")
@@ -50,6 +57,7 @@ fun LoginScreen(navController: NavHostController) {
     var registerClicked by remember {
         mutableStateOf(false)
     }
+    var loginError by remember { mutableStateOf<String?>(null)}
 
     val isLoginEnabled = email.isNotEmpty() && password.isNotEmpty()
 
@@ -95,11 +103,21 @@ fun LoginScreen(navController: NavHostController) {
             visualTransformation = PasswordVisualTransformation()
         )
 
+
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(
-            onClick = { Log.i("Credential", "Email: $email, Password: ${AutofillType.Password
-            }") },
+            onClick = {
+                coroutineScope.launch {
+                    try {
+                        auth.signInWithEmailAndPassword(email, password).await()
+                        loginError = null
+                        navController.navigate("TodoListPage") // Navigate to TodoListPage
+                    } catch (e: Exception) {
+                        loginError = e.message
+                    }
+                }
+            },
 
             enabled = isLoginEnabled
         ) {
@@ -137,19 +155,6 @@ fun LoginScreen(navController: NavHostController) {
         Text(text = "Forgot Password?", modifier = Modifier.clickable {
 
         })
-
-        Button(
-            onClick = {
-                if (isLoginEnabled) {
-                    // Implement login logic, then navigate to TodoListPage if successful
-                    navController.navigate("todo") // Navigate to the Todo List page
-                }
-            },
-            enabled = isLoginEnabled
-        ) {
-            Text("Login")
-        }
-
 
         // Navigating to Register Screen if register button clicked
         if (registerClicked) {
