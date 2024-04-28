@@ -1,4 +1,4 @@
-package com.example.todoapp.ui.theme
+package com.example.todoapp
 
 import android.app.Application
 import androidx.room.Room

@@ -9,7 +9,7 @@ import com.example.todoapp.Todo
 @Dao
 interface TodoDao {
 
-    @Query("SELECT * FROM Todo ORDER BY createdAt DESC")
+    @Query("SELECT * FROM TODO")
     fun getAllTodo() : LiveData<List<Todo>>
 
     @Insert
