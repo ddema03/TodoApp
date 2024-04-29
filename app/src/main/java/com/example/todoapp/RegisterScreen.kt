@@ -112,7 +112,7 @@ fun RegisterScreen(navController: NavHostController) {
                                 if (task.isSuccessful) {
                                     // Registration was successful
                                     // Navigate to login or other screen
-                                    navController.navigate("login")
+                                    navController.navigate("login_screen")
                                 } else {
                                     // Registration failed, handle the error
                                     val error = task.exception?.message

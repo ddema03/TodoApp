@@ -67,9 +67,9 @@ fun LoginScreen(navController: NavHostController) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
-            painter = painterResource(id = R.drawable.a),
+            painter = painterResource(id = R.drawable.login),
             contentDescription = "Login image",
-            modifier = Modifier.size(200.dp)
+            modifier = Modifier.size(250.dp)
         )
 
         Text(text = "Welcome Back", fontSize = 28.sp, fontWeight = FontWeight.Bold)
@@ -112,7 +112,7 @@ fun LoginScreen(navController: NavHostController) {
                     try {
                         auth.signInWithEmailAndPassword(email, password).await()
                         loginError = null
-                        navController.navigate("TodoListPage") // Navigate to TodoListPage
+                        navController.navigate("todo_list_page") // Navigate to TodoListPage
                     } catch (e: Exception) {
                         loginError = e.message
                     }
@@ -142,8 +142,8 @@ fun LoginScreen(navController: NavHostController) {
                 Text(text = "Remember Me")
             }
 
-            TextButton(onClick = { navController.navigate("register") }) {
-                Text(text = "Register")
+            TextButton(onClick = { navController.navigate("register_screen") }) {
+                        Text(text = "Register")
             }
 
         }

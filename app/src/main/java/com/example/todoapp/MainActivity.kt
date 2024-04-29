@@ -5,15 +5,10 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.todoapp.ui.theme.TodoAppTheme
 
 class MainActivity : ComponentActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
@@ -22,14 +17,17 @@ class MainActivity : ComponentActivity() {
         val todoViewModel = ViewModelProvider(this)[TodoViewModel::class.java]
         setContent {
             val navController = rememberNavController()
-            NavHost(navController, startDestination = "login_screen"){
-                composable("login_screen"){
+            NavHost(navController, startDestination = "login_screen") {
+                composable("login_screen") {
                     LoginScreen(navController)
                 }
 
-                composable("register_screen"){
+                composable("register_screen") {
                     RegisterScreen(navController = navController)
-            }
+                }
+                composable("todo_list_page") {
+                    TodoListPage(todoViewModel)
+                }
 
 //            TodoAppTheme {
 //                // A surface container using the 'background' color from the theme
@@ -39,7 +37,7 @@ class MainActivity : ComponentActivity() {
 //                ) {
 //                    TodoListPage(todoViewModel)
 //                }
+                }
             }
         }
     }
-}

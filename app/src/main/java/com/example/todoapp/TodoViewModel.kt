@@ -33,5 +33,9 @@ class TodoViewModel : ViewModel() {
 
     }
 
+    fun logout() {
+
+    }
+
 
 }
